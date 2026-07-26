@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tjsampler"
+version = "0.1.0"
+authors = [
+    {name = "DrizzleatDusk", email = "xgxx1008@outlook.com"},
+]
+description = "Sampler for taiji data challenge 2"
+readme = "README.md"
+license = "GPL-3.0-or-later"
+requires-python = ">=3.9"
+dependencies = [
+    "numpy>=1.26",
+    "scipy>=1.13",
+    "matplotlib",
+    "corner>=2.2",
+    "progressbar2>=4.5.0",
+    "h5py>=3.10",
+    "mpi4py>=4.0",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+[project.optional-dependencies]
+docs = [
+    "sphinx>=8",
+    "myst-parser",
+    "sphinx-book-theme",
+]
+
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/tjsampler"]
