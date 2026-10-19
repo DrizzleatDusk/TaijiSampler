@@ -297,6 +297,9 @@ class RJMove(Move):
         return logprob
 
     def draw_proposal(self, state, calc_log_prior, calc_log_likelihood):
+        """
+        BUG: new_state contains auxilary dimensions when reduce dimension move.
+        """
         new_model_int = random.rng.choice(self.ntrans_model, p=self.trans_prob)
         if (add_params := self.add_params[new_model_int]) is not None: 
             params_added = add_params.draw_sample()

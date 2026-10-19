@@ -84,6 +84,7 @@ class Sampler:
                                                             log_posterior,
                                                             self)
                 self.temp.swap(state.log_likelihood)
+                log_posterior = state.log_prior + self.temp.calc_temp_log_likelihood(state.log_likelihood)
             yield state
         
     def run(self, state0, nstep, nburn, thin):
@@ -138,7 +139,7 @@ class Samplers:
             orders = sorted(set(orders))
         self.orders = comm.bcast(orders)
 
-    def afer_move(self, state, log_posterior, is_new):
+    def after_move(self, state, log_posterior, is_new):
         pass
 
     def draw_sample(self, state0, nstep, thin):
@@ -161,6 +162,7 @@ class Samplers:
                             state, log_posterior, self.sampler)
                         self.after_move(state, log_posterior, is_new)
                         self.sampler.temp.swap(state.log_likelihood)
+                        log_posterior = state.log_prior + self.sampler.temp.calc_temp_log_likelihood(state.log_likelihood)
             yield state 
 
     def run(self, state0, nstep, nburn, thin):
